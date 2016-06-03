@@ -17,7 +17,7 @@ module.exports = function(options) {
         try {
             let pkg = JSON.parse(file.contents.toString());
             for(let dependency in pkg.dependencies) {
-                if(/^regular-ui-/.test(dependency))
+                if(/^rgui-/.test(dependency))
                     contents.push(`export * from '${dependency}';\n`);
             }
         } catch(e) {

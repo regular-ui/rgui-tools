@@ -1,2 +1,2 @@
-rgui-tools doc
-rgui-tools watch
+- rgui-tools watch
+- rgui-tools doc

@@ -24,10 +24,17 @@ module.exports = function(options) {
         else if(file.isStream())
             throw new PluginError('gulp-build', 'Streaming not supported');
 
+        let jsonpath = path.join(file.path, '../../index.json');
+
         let data = {
             assetsPath: 'http://regular-ui.github.io/',
+            name: '',
+            zhName: '',
             script: ''
         };
+
+        if(fs.existsSync(jsonpath))
+            data = Object.assign(data, JSON.parse(fs.readFileSync(jsonpath, 'utf-8')));
 
         data.content = file.contents.toString();
         let tpl = templates.head + '<div class="g-bd"><div class="g-bdc">' + templates.main + '</div></div>' + templates.foot;

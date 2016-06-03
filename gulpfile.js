@@ -20,7 +20,9 @@ gulp.task('dist', (done) => {
 
 gulp.task('gh-pages', (done) => {
     ghpages.clean();
-    ghpages.publish('doc', function(err) {
+    ghpages.publish('doc', {
+        src: ['**/*', '!**/__*']
+    }, function(err) {
         if(err)
             console.error(err);
         else

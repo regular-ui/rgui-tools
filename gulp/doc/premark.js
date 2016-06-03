@@ -41,9 +41,12 @@ exports.premark = function(content) {
                 strings.push('    template: template');
                 strings.push('});');
             }
-            strings.push('    component.$inject($$(".m-example")[index]);');
+            strings.push('    component && component.$inject($$(".m-example")[index]);');
             strings.push('})(index++);');
         }
+
+        if(example.css)
+            example.css = example.css.replace(/>/g, '\\>');
 
         return '<div class="m-example">'
             + (example.css ? '<style>' + example.css + '</style>' : '')

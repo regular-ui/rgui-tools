@@ -20,7 +20,7 @@ module.exports = function(options) {
             let pkg = JSON.parse(file.contents.toString());
             for(let dependency in pkg.dependencies) {
                 let mcsspath = `./node_modules/${dependency}/index.mcss`;
-                if(/^regular-ui-/.test(dependency) && fs.existsSync(mcsspath))
+                if(/^rgui-/.test(dependency) && fs.existsSync(mcsspath))
                     contents.push(`@import '${dependency}/index.mcss';\n`);
             }
         } catch(e) {
