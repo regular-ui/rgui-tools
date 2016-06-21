@@ -14,6 +14,9 @@
 <script src="../js/index.js"></script>
 <script>
 var $$ = function(selector){return document.querySelectorAll(selector)};
+$$('.m-article > h2, .m-article > h3').forEach(function($heading) {
+    $heading.innerHTML = '<a href="#' + $heading.id + '">' + $heading.innerText + '</a>';
+});
 </script>
 <script>
 <%- script %>

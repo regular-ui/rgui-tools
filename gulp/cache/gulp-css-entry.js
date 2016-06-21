@@ -6,7 +6,7 @@ let PluginError = gutil.PluginError;
 let through2 = require('through2');
 
 module.exports = function(options) {
-    options = options || {};
+    options = Object.assign({}, options || {});
 
     return through2.obj((file, enc, cb) => {
         if (file.isNull())

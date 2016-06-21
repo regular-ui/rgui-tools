@@ -2,6 +2,7 @@
 
 'use strict';
 
+let fs = require('fs');
 let pkg = require('../package.json');
 let chalk = require('chalk');
 let gutil = require('gulp-util');
@@ -9,6 +10,7 @@ let prettyTime = require('pretty-hrtime');
 
 let commander = require('commander');
 commander
+    .usage('[options] <task>')
     .version(pkg.version)
     .parse(process.argv);
 
@@ -16,6 +18,12 @@ let command = commander.args[0];
 if(!command)
     commander.help();
 else {
+    if(!fs.existsSync(process.cwd() + '/package.json')) {
+        console.error('error: Not a RGUI package');
+        console.error('Please cd to a RGUI package directory or use `rgui-tools init` to create a new package.');
+        return;
+    }
+
     let gulp = require('../gulpfile.js');
     logEvents(gulp);
 

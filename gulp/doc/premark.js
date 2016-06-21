@@ -45,9 +45,6 @@ exports.premark = function(content) {
             strings.push('})(index++);');
         }
 
-        if(example.css)
-            example.css = example.css.replace(/>/g, '\\>');
-
         return '<div class="m-example">'
             + (example.css ? '<style>' + example.css + '</style>' : '')
             + (example.html || '')
