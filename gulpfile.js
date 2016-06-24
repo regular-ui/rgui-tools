@@ -4,9 +4,10 @@ let gulp = require('gulp');
 let sequence = require('run-sequence');
 let ghpages = require('gh-pages');
 
-require('./gulp/doc.js');
-require('./gulp/cache.js');
-require('./gulp/dist.js');
+require('./gulp/doc/index.js');
+require('./gulp/cache/index.js');
+require('./gulp/dist/index.js');
+require('./gulp/replace/index.js');
 
 gulp.task('watch', ['doc-watch', 'cache-watch']);
 

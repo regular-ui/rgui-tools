@@ -18,7 +18,7 @@ gulp.task('dist-clean', (done) => {
 gulp.task('dist-js', (done) => {
     return gulp.src('./index.js')
         .pipe(webpack(webpackConfig({
-            entry: [require.resolve('./cache/dist/entry-js/polyfill.js'), './index.js'],
+            entry: [require.resolve('./dist/entry-js/polyfill.js'), './index.js'],
             output: {
                 filename: 'index.js',
                 library: 'RGUI2',

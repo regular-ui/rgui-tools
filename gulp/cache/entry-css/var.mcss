@@ -1,6 +1,12 @@
 // Global Dimension Variables:
 // ========================================================================
 
+/* Dimensions */
+$media-xs-max-width =                   480px - 1;
+$media-sm-max-width =                   768px - 1;
+$media-md-max-width =                   960px - 1;
+$media-lg-max-width =                   1220px - 1;
+
 /* Height */
 $height-base = 34px;
 $height-xs = 22px;
@@ -28,6 +34,15 @@ $border-radius-xs = 1px;
 $border-radius-sm = 2px;
 $border-radius-lg = 4px;
 $border-radius-xl = 6px;
+
+
+
+// Global Font Variables:
+// ========================================================================
+$font-family-sans-serif = "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+$font-family-serif = Georgia, "Times New Roman", Times, SimSun, "FontAwesome", serif; //FangSong, STFangSong
+$font-family-monospace = Monaco, Menlo, Consolas, "Courier New", "FontAwesome", monospace;
+$font-family-kai = Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, "FontAwesome", serif;
 
 
 

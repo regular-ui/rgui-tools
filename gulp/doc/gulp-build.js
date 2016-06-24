@@ -19,7 +19,7 @@ let jsAPI = require('./js-api.js');
 module.exports = function(options) {
     options = options || {verbose: true};
 
-    return through2.obj(function(file, enc, cb) {
+    return through2.obj((file, enc, cb) => {
         // 目前只为*.md的生成页面
 
         if (file.isNull())
@@ -30,7 +30,7 @@ module.exports = function(options) {
         let jsonpath = path.join(file.path, '../../index.json');
 
         let data = {
-            assetsPath: 'http://regular-ui.github.io/',
+            assetsPath: 'https://regular-ui.github.io/',
             name: '',
             zhName: '',
             content: '',

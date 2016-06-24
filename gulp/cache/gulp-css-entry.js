@@ -14,7 +14,7 @@ module.exports = function(options) {
         else if(file.isStream())
             throw new PluginError('gulp-wrap', 'Streaming not supported');
 
-        let contents = [`@import 'entry/index.mcss';\n`];
+        let contents = [`@import 'entry-css/index.mcss';\n`];
 
         try {
             let pkg = JSON.parse(file.contents.toString());
