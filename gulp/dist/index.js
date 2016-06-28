@@ -40,3 +40,7 @@ gulp.task('dist-css', (done) => {
 })
 
 gulp.task('dist-build', ['dist-js', 'dist-css']);
+
+gulp.task('dist', (done) => {
+    sequence('dist-clean', 'dist-build', done);
+});

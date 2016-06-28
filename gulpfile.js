@@ -6,17 +6,11 @@ let ghpages = require('gh-pages');
 
 require('./gulp/doc/index.js');
 require('./gulp/cache/index.js');
-require('./gulp/dist/index.js');
-require('./gulp/replace/index.js');
 
 gulp.task('watch', ['doc-watch', 'cache-watch']);
 
 gulp.task('doc', (done) => {
     sequence(['cache-clean', 'doc-clean'], ['doc-build', 'cache-build'], done);
-});
-
-gulp.task('dist', (done) => {
-    sequence('dist-clean', 'dist-build', done);
 });
 
 gulp.task('gh-pages', (done) => {

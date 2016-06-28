@@ -18,7 +18,7 @@ function parse(filepath) {
         author: /^@author\s+(.+?)$/,
     }
 
-    let content = fs.readFileSync(filepath, {encoding: 'utf8'});
+    let content = fs.readFileSync(filepath, 'utf8');
 
     let tokens = [];
     let baseClass = null;

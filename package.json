@@ -3,7 +3,9 @@
   "description": "Developer Tools for Regular UI",
   "version": "0.1.0",
   "author": "Rainfore <rainforest92@126.com>",
-  "main": "./index.js",
+  "bin": {
+    "rgui-tools": "./bin/rgui-tools"
+  },
   "repository": "regular-ui/rgui-tools",
   "homepage": "http://regular-ui.github.io",
   "bugs": {
@@ -30,6 +32,7 @@
     "codemirror-highlight": "^1.1.1",
     "commander": "^2.9.0",
     "ejs": "^2.4.1",
+    "expect.js": "^0.3.1",
     "gh-pages": "^0.11.0",
     "gulp": "^3.9.1",
     "gulp-all": "^1.1.0",

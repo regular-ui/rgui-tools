@@ -24,14 +24,19 @@ else if(command === 'init') {
 
   // 修改package.json
 
-} else {
+} else {    // run gulp
     if(!fs.existsSync(process.cwd() + '/package.json')) {
         console.error('error: Not a RGUI package');
         console.error('Please cd to a RGUI package directory or use `rgui-tools init` to create a new package.');
         return;
     }
 
-    require('../gulpfile.js');
+    if(command === 'dist')
+        require('../gulp/dist/index.js');
+    else if(command === 'test')
+        require('../gulp/test/index.js');
+    else
+        require('../gulpfile.js');
     let gulp = require('gulp');
     let logEvents = require('../lib/logEvents.js');
     logEvents(gulp);
