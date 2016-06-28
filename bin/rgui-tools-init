@@ -15,16 +15,15 @@ let repo = commander.args[0] + '';
 if(!repo.startsWith('ui-'))
     return console.log('Repo name should start with `ui-`!');
 
-// const URL = 'https://github.com/regular-ui/ui-sample.git';
-// let result = execSync([
-//     `git clone -b master ${URL} ${repo}`,
-//     `cd ${repo}`,
-//     `rm -rf .git`,
-//     `git init`,
-//     `git remote add origin https://github.com/regular-ui/${repo}.git`,
-// ].join(';')) + '';
-// console.log(result);
+const URL = 'https://github.com/regular-ui/ui-sample.git';
 
+console.log(execSync([
+    `git clone -b master ${URL} ${repo}`,
+    `cd ${repo}`,
+    `rm -rf .git`,
+    `git init`,
+    `git remote add origin https://github.com/regular-ui/${repo}.git`,
+].join(';')) + '');
 process.chdir(repo);
 
 let components = commander.components.split(',');
@@ -38,9 +37,11 @@ components = components.map((component) => {
     }
 });
 
-//     `mv sample ${components}`,
-// Replace
+console.log(execSync(`mv sample ${components[0].lowerName}`) + '');
 
-let gulp = require('../gulp/replace/index.js');
+// Replace
+require('../gulp/replace/index.js');
+let gulp = require('gulp');
 gulp.components = components;
 gulp.start('replace');
+

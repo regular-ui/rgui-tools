@@ -9,9 +9,9 @@ let minifycss = require('gulp-minify-css');
 let mcss = require('gulp_mcss');
 let webpack = require('gulp-webpack');
 
-let jsEntry = require('./cache/gulp-js-entry.js');
-let cssEntry = require('./cache/gulp-css-entry.js');
-let webpackConfig = require('./cache/webpack.config.js');
+let jsEntry = require('./gulp-js-entry.js');
+let cssEntry = require('./gulp-css-entry.js');
+let webpackConfig = require('./webpack.config.js');
 
 gulp.task('cache-clean', (done) => {
     return gulp.src('./.rgui-cache', {read: false}).pipe(rm());
@@ -61,7 +61,7 @@ gulp.task('cache-css', (done) => {
         .pipe(cssEntry())
         .pipe(gulp.dest('./.rgui-cache/css'))
         .pipe(mcss({
-            pathes: [__dirname + '/../node_modules/mass', __dirname + '/cache', './node_modules'],
+            pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],
             importCSS: true
         }))
         .pipe(gulp.dest('./doc/css'))

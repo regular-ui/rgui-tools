@@ -10,5 +10,3 @@ gulp.task('replace', (done) => {
         .pipe(replace(gulp.components[0]))
         .pipe(gulp.dest('.'));
 });
-
-module.exports = gulp;

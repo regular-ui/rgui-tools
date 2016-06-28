@@ -4,23 +4,19 @@
 
 let fs = require('fs');
 let pkg = require('../package.json');
-let chalk = require('chalk');
-let gutil = require('gulp-util');
-let prettyTime = require('pretty-hrtime');
 
 let commander = require('commander');
 commander
     .usage('[options] <task>')
     .version(pkg.version)
+    .command('init [options] <repo>', 'init a repo')
     .parse(process.argv);
 
 let command = commander.args[0];
 if(!command)
     commander.help();
 else if(command === 'init') {
-    let repo = commander.args[1] + '';
-    if(!repo.startsWith('ui-'))
-        return console.log('Repo name should start with `ui-`!');
+    return;
 } else if(command === 'publish') {
     let version = commander.args[1];
     if(!version)
@@ -35,12 +31,9 @@ else if(command === 'init') {
         return;
     }
 
-    let gulp = require('../gulpfile.js');
+    require('../gulpfile.js');
+    let gulp = require('gulp');
     let logEvents = require('../lib/logEvents.js');
     logEvents(gulp);
-
-    process.nextTick(function() {
-        gulp.start(command);
-    });
+    gulp.start(command);
 }
-

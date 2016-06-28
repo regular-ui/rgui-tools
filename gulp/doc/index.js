@@ -3,7 +3,7 @@
 let gulp = require('gulp');
 let rm = require('gulp-rimraf');
 
-let build = require('./doc/gulp-build.js');
+let build = require('./gulp-build.js');
 
 gulp.task('doc-clean', (done) => {
     return gulp.src('./doc', {read: false}).pipe(rm());

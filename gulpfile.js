@@ -31,5 +31,3 @@ gulp.task('gh-pages', (done) => {
         done();
     });
 });
-
-module.exports = gulp;
