@@ -4,14 +4,13 @@
 
 let execSync = require('child_process').execSync;
 
-
-let commander = require('commander');
-commander
+let program = require('commander');
+program
     .usage('<repo>')
-    .option('-c, --components <components>', 'Component List, like: Sample1, AnotherSample')
+    .option('-c, --components <components>', 'Component List, like: Sample, AnotherSample')
     .parse(process.argv);
 
-let repo = commander.args[0] + '';
+let repo = program.args[0] + '';
 if(!repo.startsWith('ui-'))
     return console.log('Repo name should start with `ui-`!');
 
@@ -26,22 +25,22 @@ console.log(execSync([
 ].join(';')) + '');
 process.chdir(repo);
 
-let components = commander.components.split(',');
-if(!components.length)
+program.components = program.components.split(',');
+if(!program.components.length)
     return;
 
-components = components.map((component) => {
+program.components = program.components.map((component) => {
     return {
         name: component,
         lowerName: component[0].toLowerCase() + component.slice(1)
     }
 });
 
-console.log(execSync(`mv sample ${components[0].lowerName}`) + '');
+console.log(execSync(`mv sample ${program.components[0].lowerName}`) + '');
 
 // Replace
-require('../gulp/replace/index.js');
 let gulp = require('gulp');
-gulp.components = components;
-gulp.start('replace');
+gulp.program = program;
 
+require('../gulp/replace/index.js');
+gulp.start('replace');

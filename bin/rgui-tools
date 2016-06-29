@@ -5,24 +5,26 @@
 let fs = require('fs');
 let pkg = require('../package.json');
 
-let commander = require('commander');
-commander
+let program = require('commander');
+program
     .usage('[options] <task>')
     .version(pkg.version)
     .command('init [options] <repo>', 'init a repo')
+    .option('-r, --report', 'build reports when test')
+    .option('-s, --single-run', 'single run when test')
     .parse(process.argv);
 
-let command = commander.args[0];
+let command = program.args[0];
 if(!command)
-    commander.help();
+    program.help();
 else if(command === 'init') {
     return;
 } else if(command === 'publish') {
-    let version = commander.args[1];
+    let version = program.args[1];
     if(!version)
         return console.log('Please input a version!');
 
-  // 修改package.json
+    // 修改package.json
 
 } else {    // run gulp
     if(!fs.existsSync(process.cwd() + '/package.json')) {
@@ -31,14 +33,18 @@ else if(command === 'init') {
         return;
     }
 
+    let gulp = require('gulp');
+    let logEvents = require('../lib/logEvents.js');
+    logEvents(gulp);
+    gulp.program = program;
+
+    // 分开引用，加快gulp启动速度
     if(command === 'dist')
         require('../gulp/dist/index.js');
     else if(command === 'test')
         require('../gulp/test/index.js');
     else
         require('../gulpfile.js');
-    let gulp = require('gulp');
-    let logEvents = require('../lib/logEvents.js');
-    logEvents(gulp);
+
     gulp.start(command);
 }
