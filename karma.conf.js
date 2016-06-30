@@ -33,14 +33,15 @@ let webpackConfig = {
 module.exports = function(config) {
     config.set({
         browsers: [
-            'Chrome'
-            // 'PhantomJS',
+            'PhantomJS'
+            // 'Chrome'
             // 'Firefox',
             //'IE', 'IE9', 'IE8', 'IE7',
         ],
         frameworks: ['mocha', 'expect'],
         files: [
             './node_modules/regularjs/dist/regular.min.js',
+            './gulp/dist/entry-js/polyfill.js',
             filePath
         ],
         preprocessors: preprocessors,

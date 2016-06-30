@@ -13,5 +13,5 @@ gulp.task('test', ['test-copy'], (done) => {
     new Server({
         configFile: require.resolve('../../karma.conf.js'),
         singleRun: program.singleRun
-    }, (exitCode) => done()).start();
+    }, done).start();
 });

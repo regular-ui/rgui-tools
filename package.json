@@ -1,7 +1,7 @@
 {
   "name": "rgui-tools",
   "description": "Developer Tools for Regular UI",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": "Rainfore <rainforest92@126.com>",
   "bin": {
     "rgui-tools": "./bin/rgui-tools"
@@ -51,6 +51,7 @@
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.0.4",
     "karma-nyan-reporter": "^0.2.4",
+    "karma-phantomjs-launcher": "^1.0.1",
     "karma-webpack": "^1.7.0",
     "markextend": "^0.0.4",
     "mass": "^0.1.0",
