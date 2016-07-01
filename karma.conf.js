@@ -1,34 +1,15 @@
 'use strict';
 
-let babelConfig = require('./babelrc.js');
-
-
-let filePath = process.cwd() + '/.rgui-cache/test/index.js';
-let reportsPath = process.cwd() + '/test-reports';
+const filePath = process.cwd() + '/.rgui-cache/test/index.js';
+const reportsPath = process.cwd() + '/test-reports';
 
 let preprocessors = {};
 preprocessors[filePath] = 'webpack';
-let webpackConfig = {
-    output: {
-        libraryTarget: 'umd'
-    },
-    externals: {
-        'regularjs': {
-            root: 'Regular',
-            amd: 'Regular',
-            commonjs: 'regularjs',
-            commonjs2: 'regularjs'
-        }
-    },
-    babel: babelConfig,
-    module: {
-        loaders: [
-            { test: /\.rgl$/, loader: require.resolve('rgl-loader') },
-            { test: /\.js$/, exclude: /node_modules\/(?!rgui-)/, loader: require.resolve('babel-loader') },
-            { test: /\.js$/, exclude: /(test|node_modules)\//, loader: require.resolve('isparta-loader') }
-        ]
-    }
-};
+
+let webpackConfig = require('./webpack.conf.js')({
+    output: {libraryTarget: 'umd'}
+});
+webpackConfig.module.loaders.push({test: /\.js$/, exclude: /(test|node_modules)\//, loader: require.resolve('isparta-loader')});
 
 module.exports = function(config) {
     config.set({

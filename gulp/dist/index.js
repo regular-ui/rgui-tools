@@ -11,7 +11,7 @@ let minifycss = require('gulp-minify-css');
 let mcss = require('gulp_mcss');
 let webpack = require('gulp-webpack');
 
-let webpackConfig = require('../cache/webpack.config.js');
+let webpackConf = require('../../webpack.conf.js');
 
 gulp.task('dist-clean', (done) => {
     return gulp.src('./dist', {read: false}).pipe(rm());
@@ -19,7 +19,7 @@ gulp.task('dist-clean', (done) => {
 
 gulp.task('dist-js', (done) => {
     return gulp.src('./index.js')
-        .pipe(webpack(webpackConfig({
+        .pipe(webpack(webpackConf({
             output: {
                 filename: 'index.js',
                 library: program.library || 'RGUI',

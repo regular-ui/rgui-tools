@@ -11,7 +11,7 @@ let webpack = require('gulp-webpack');
 
 let jsEntry = require('./gulp-js-entry.js');
 let cssEntry = require('./gulp-css-entry.js');
-let webpackConfig = require('./webpack.config.js');
+let webpackConf = require('../../webpack.conf.js');
 
 gulp.task('cache-clean', (done) => {
     return gulp.src('./.rgui-cache', {read: false}).pipe(rm());
@@ -31,7 +31,7 @@ function cacheJS(watch) {
         return gulp.src('./package.json')
             .pipe(jsEntry())
             .pipe(gulp.dest('./.rgui-cache/js'))
-            .pipe(webpack(webpackConfig({watch, devtool: 'eval'})))
+            .pipe(webpack(webpackConf({watch, devtool: 'eval'})))
             .pipe(gulp.dest('./doc/js'))
             .pipe(rename({suffix: '.min'}))
             .pipe(uglify())
