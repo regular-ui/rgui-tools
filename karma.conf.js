@@ -40,8 +40,8 @@ module.exports = function(config) {
         ],
         frameworks: ['mocha', 'expect'],
         files: [
+            './node_modules/babel-polyfill/dist/polyfill.min.js',
             './node_modules/regularjs/dist/regular.min.js',
-            './gulp/dist/entry-js/polyfill.js',
             filePath
         ],
         preprocessors: preprocessors,

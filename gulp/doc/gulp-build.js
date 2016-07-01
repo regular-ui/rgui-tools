@@ -30,7 +30,7 @@ module.exports = function(options) {
         let jsonpath = path.join(file.path, '../../index.json');
 
         let data = {
-            assetsPath: 'https://regular-ui.github.io/',
+            assetsPath: 'https://regular-ui.github.io/v0.2/',
             name: '',
             zhName: '',
             content: '',

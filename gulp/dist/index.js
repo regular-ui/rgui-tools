@@ -2,6 +2,7 @@
 
 let gulp = require('gulp');
 
+let sequence = require('run-sequence');
 let rm = require('gulp-rimraf');
 let rename = require('gulp-rename');
 let uglify = require('gulp-uglify');
@@ -18,10 +19,9 @@ gulp.task('dist-clean', (done) => {
 gulp.task('dist-js', (done) => {
     return gulp.src('./index.js')
         .pipe(webpack(webpackConfig({
-            entry: [require.resolve('./entry-js/polyfill.js'), './index.js'],
             output: {
                 filename: 'index.js',
-                library: 'RGUI2',
+                library: 'RGUI',
                 libraryTarget: 'umd'
             }
         })))
