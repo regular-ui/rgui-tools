@@ -1,7 +1,7 @@
 'use strict';
 
 let gulp = require('gulp');
-let program = gulp.program;
+let program = gulp.program || {};
 let Server = require('karma').Server;
 
 gulp.task('test-copy', (done) => {
@@ -10,8 +10,14 @@ gulp.task('test-copy', (done) => {
 });
 
 gulp.task('test', ['test-copy'], (done) => {
-    new Server({
-        configFile: require.resolve('../../karma.conf.js'),
-        singleRun: program.singleRun
-    }, done).start();
+    let config = {configFile: require.resolve('../../karma.conf.js')};
+
+    if(program.singleRun)
+        config.singleRun = program.singleRun;
+    if(program.reporters)
+        config.reporters = program.reporters.split(',');
+    if(program.browsers)
+        config.browsers = program.browsers.split(',');
+
+    new Server(config, done).start();
 });

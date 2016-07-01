@@ -1,7 +1,7 @@
 'use strict';
 
 let gulp = require('gulp');
-let program = gulp.program;
+let program = gulp.program || {};
 let all = require('gulp-all');
 
 let replace = require('./gulp-replace');

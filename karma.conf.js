@@ -32,12 +32,7 @@ let webpackConfig = {
 
 module.exports = function(config) {
     config.set({
-        browsers: [
-            'PhantomJS'
-            // 'Chrome'
-            // 'Firefox',
-            //'IE', 'IE9', 'IE8', 'IE7',
-        ],
+        browsers: ['PhantomJS'],    // 'Chrome', 'Firefox', 'IE', 'IE9', 'IE8'
         frameworks: ['mocha', 'expect'],
         files: [
             './node_modules/babel-polyfill/dist/polyfill.min.js',
@@ -49,8 +44,11 @@ module.exports = function(config) {
         webpackMiddleware: {noInfo: true},
         reporters: ['nyan', 'coverage'],
         coverageReporter: {
-            dir: reportsPath,
+            dir: `${reportsPath}/coverage`,
             type: 'html'
-        }
+        },
+        // htmlReporter: {
+        //     outputDir: `${reportsPath}/result`
+        // }
     });
 };

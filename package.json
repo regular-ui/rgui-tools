@@ -51,6 +51,7 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
     "karma-expect": "^1.1.2",
+    "karma-html-reporter": "^0.2.7",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.0.4",
     "karma-nyan-reporter": "^0.2.4",

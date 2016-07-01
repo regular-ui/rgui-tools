@@ -1,6 +1,7 @@
 'use strict';
 
 let gulp = require('gulp');
+let program = gulp.program || {};
 
 let sequence = require('run-sequence');
 let rm = require('gulp-rimraf');
@@ -21,7 +22,7 @@ gulp.task('dist-js', (done) => {
         .pipe(webpack(webpackConfig({
             output: {
                 filename: 'index.js',
-                library: 'RGUI',
+                library: program.library || 'RGUI',
                 libraryTarget: 'umd'
             }
         })))
