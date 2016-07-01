@@ -19,5 +19,5 @@ gulp.task('test', ['test-copy'], (done) => {
     if(program.browsers)
         config.browsers = program.browsers.split(',');
 
-    new Server(config, done).start();
+    new Server(config, (code) => process.exit(code)).start();
 });

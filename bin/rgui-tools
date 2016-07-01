@@ -11,8 +11,8 @@ program
     .version(pkg.version)
     .command('init [options] <repo>', 'init a repo')
     .option('-l, --library <library>', 'output library name when dist')
-    .option('-b, --browsers', 'browsers used when test')
-    .option('-r, --reporters', 'build reports when test')
+    .option('-b, --browsers <browsers>', 'browsers used when test')
+    .option('-r, --reporters <reporters>', 'build reports when test')
     .option('-s, --single-run', 'single run when test')
     .parse(process.argv);
 
