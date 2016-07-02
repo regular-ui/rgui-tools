@@ -26,7 +26,10 @@ module.exports = function(config) {
         reporters: ['nyan', 'coverage'],
         coverageReporter: {
             dir: `${reportsPath}/coverage`,
-            type: 'html'
+            reporters: [
+                {type: 'lcov', subdir: '.'},
+                {type: 'text'},
+            ]
         },
         // htmlReporter: {
         //     outputDir: `${reportsPath}/result`

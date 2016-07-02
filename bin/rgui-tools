@@ -11,9 +11,11 @@ program
     .version(pkg.version)
     .command('init [options] <repo>', 'init a repo')
     .option('-l, --library <library>', 'output library name when dist')
+    .option('-O, --online', 'online mode')
+    .option('-s, --single-run', 'single run when test')
     .option('-b, --browsers <browsers>', 'browsers used when test')
     .option('-r, --reporters <reporters>', 'build reports when test')
-    .option('-s, --single-run', 'single run when test')
+    .option('-v, --verbose', 'verbose')
     .parse(process.argv);
 
 let command = program.args[0];
@@ -39,4 +41,3 @@ else
     require('../gulpfile.js');
 
 gulp.start(command);
-

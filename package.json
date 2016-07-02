@@ -1,7 +1,7 @@
 {
   "name": "rgui-tools",
   "description": "Developer Tools for Regular UI",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Rainfore <rainforest92@126.com>",
   "bin": {
     "rgui-tools": "./bin/rgui-tools"
@@ -50,6 +50,7 @@
     "karma": "^1.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
+    "karma-coveralls": "^1.1.2",
     "karma-expect": "^1.1.2",
     "karma-html-reporter": "^0.2.7",
     "karma-mocha": "^1.1.1",
