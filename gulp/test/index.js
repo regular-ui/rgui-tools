@@ -4,12 +4,16 @@ let gulp = require('gulp');
 let program = gulp.program || {};
 let Server = require('karma').Server;
 
-gulp.task('test-copy', (done) => {
-    return gulp.src(require.resolve('./entry-js/index.js'))
+let concatImport = require('./gulp-concat-import.js');
+
+gulp.task('test-entry', (done) => {
+    return gulp.src('./*/test/*.js', {read: false})
+        .pipe(concatImport('index.js'))
         .pipe(gulp.dest('./.rgui-cache/test'));
 });
 
-gulp.task('test', ['test-copy'], (done) => {
+
+gulp.task('test', ['test-entry'], (done) => {
     let config = {configFile: require.resolve('../../karma.conf.js')};
 
     if(program.online) {
@@ -28,3 +32,4 @@ gulp.task('test', ['test-copy'], (done) => {
 
     new Server(config, (code) => process.exit(code)).start();
 });
+
