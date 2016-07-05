@@ -32,4 +32,3 @@ gulp.task('test', ['test-entry'], (done) => {
 
     new Server(config, (code) => process.exit(code)).start();
 });
-

@@ -16,6 +16,7 @@ program
     .option('-b, --browsers <browsers>', 'browsers used when test')
     .option('-r, --reporters <reporters>', 'build reports when test')
     .option('-v, --verbose', 'verbose')
+    .option('-f, --fix', 'fix when lint')
     .parse(process.argv);
 
 let command = program.args[0];
@@ -37,6 +38,8 @@ if(command.startsWith('dist'))
     require('../gulp/dist/index.js');
 else if(command.startsWith('test'))
     require('../gulp/test/index.js');
+else if(command.startsWith('lint'))
+    require('../gulp/lint/index.js');
 else
     require('../gulpfile.js');
 
