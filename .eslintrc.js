@@ -1,5 +1,6 @@
 module.exports = {
     envs: ['browser', 'commonjs', 'es6'],
+    globals: [],
     parserOptions: {
         ecmaVersion: 6,
         sourceType: 'module',
@@ -50,7 +51,7 @@ module.exports = {
         'curly': [2, 'multi-or-nest'],
         'default-case': [2],
         'dot-location': [2, 'property'],
-        'dot-notation': [1],
+        'dot-notation': [1, {allowKeywords: false}],
         'eqeqeq': [2, 'always'],
         // @uncertain: 'guard-for-in',
         'no-alert': [1],
@@ -74,7 +75,7 @@ module.exports = {
         'no-iterator': [2],
         'no-labels': [1],
         // @disagreed: 'no-lone-blocks',
-        'no-loop-func': [2],
+        // @has problem: while(a) {a = find(() => ...)} 'no-loop-func': [2],
         'no-magic-numbers': [1, { ignore: [0, 1], enforceConst: true }],
         'no-multi-spaces': [2],
         'no-multi-str': [2],
