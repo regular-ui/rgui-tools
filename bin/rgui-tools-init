@@ -17,7 +17,7 @@ if(!repo.startsWith('ui-'))
 const URL = 'https://github.com/regular-ui/ui-sample.git';
 
 console.log(execSync([
-    `git clone -b master ${URL} ${repo}`,
+    `git clone -b master --depth 1 ${URL} ${repo}`,
     `cd ${repo}`,
     `rm -rf .git`,
     `git init`,

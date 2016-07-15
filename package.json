@@ -1,7 +1,7 @@
 {
   "name": "rgui-tools",
   "description": "Developer Tools for Regular UI",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Rainfore <rainforest92@126.com>",
   "bin": {
     "rgui-tools": "./bin/rgui-tools"
@@ -47,7 +47,7 @@
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "gulp-webpack": "^1.5.0",
-    "gulp_mcss": "^0.2.0",
+    "gulp_mcss": "^0.2.1",
     "isparta-loader": "^2.0.0",
     "karma": "^1.1.0",
     "karma-chrome-launcher": "^1.0.1",
@@ -64,7 +64,7 @@
     "mass": "^0.1.0",
     "mocha": "^2.5.3",
     "pretty-hrtime": "^1.0.2",
-    "regularjs": "^0.4.3",
+    "regularjs": "0.4.3",
     "rgl-loader": "^0.4.0",
     "run-sequence": "^1.2.1",
     "through2": "^2.0.1"

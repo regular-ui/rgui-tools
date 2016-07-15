@@ -8,7 +8,7 @@ require('./gulp/doc/index.js');
 require('./gulp/cache/index.js');
 require('./gulp/lint/index.js');
 
-gulp.task('watch', ['doc-watch', 'cache-watch', 'lint-watch']);
+gulp.task('dev', ['doc-watch', 'cache-watch', 'lint-watch']);
 
 gulp.task('doc', (done) => {
     sequence(['cache-clean', 'doc-clean'], ['doc-build', 'cache-build'], done);

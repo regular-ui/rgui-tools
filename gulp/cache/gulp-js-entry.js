@@ -1,5 +1,6 @@
 'use strict';
 
+let fs = require('fs');
 let gutil = require('gulp-util');
 let PluginError = gutil.PluginError;
 let through2 = require('through2');
@@ -23,7 +24,8 @@ module.exports = function(options) {
         } catch(e) {
             console.error(e);
         }
-        contents.push(`export * from '../../index.js';\n`);
+        if(fs.existsSync('./index.js'))
+            contents.push(`export * from '../../index.js';\n`);
 
         file.contents = new Buffer(contents.join(''));
         file.path = file.path.replace('package.json', 'index.js');

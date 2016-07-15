@@ -2,10 +2,10 @@
 // ========================================================================
 
 /* Dimensions */
-$media-xs-max-width =                   480px - 1;
-$media-sm-max-width =                   768px - 1;
-$media-md-max-width =                   960px - 1;
-$media-lg-max-width =                   1220px - 1;
+$media-xs-max-width = 480px - 1;
+$media-sm-max-width = 768px - 1;
+$media-md-max-width = 960px - 1;
+$media-lg-max-width = 1220px - 1;
 
 /* Height */
 $height-base = 34px;
@@ -39,6 +39,7 @@ $border-radius-xl = 6px;
 
 // Global Font Variables:
 // ========================================================================
+
 $font-family-sans-serif = "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 $font-family-serif = Georgia, "Times New Roman", Times, SimSun, "FontAwesome", serif; //FangSong, STFangSong
 $font-family-monospace = Monaco, Menlo, Consolas, "Courier New", "FontAwesome", monospace;
@@ -50,24 +51,24 @@ $font-family-kai = Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, Bi
 // ========================================================================
 
 /* Brand Colors */
-$brand-default =                        #f4f4f4;
-$brand-default-dark =                   #e5e5e5;
-$brand-default-darker =                 #adadad;
-$brand-primary =                        #3c8dbc;
-$brand-primary-dark =                   #3c8dbc;
-$brand-primary-darker =                 #367fa9;
-$brand-info =                           #00c0ef;
-$brand-info-lighter =                   mix($brand-info, white, 10%);
-$brand-info-darker =                    #00acd6;
-$brand-success =                        #00a65a;
-$brand-success-lighter =                mix($brand-success, white, 10%);
-$brand-success-darker =                 #008d4c;
-$brand-warning =                        #f39c12;
-$brand-warning-lighter =                mix($brand-warning, white, 10%);
-$brand-warning-darker =                 #e08e0b;
-$brand-error =                          #dd4b39;
-$brand-error-lighter =                  mix($brand-error, white, 10%);
-$brand-error-darker =                   #d73925;
+$brand-default = #f4f4f4;
+$brand-default-dark = #e5e5e5;
+$brand-default-darker = #adadad;
+$brand-primary = #3c8dbc;
+$brand-primary-dark = #3c8dbc;
+$brand-primary-darker = #367fa9;
+$brand-info = #00c0ef;
+$brand-info-lighter = mix($brand-info, white, 10%);
+$brand-info-darker = #00acd6;
+$brand-success = #00a65a;
+$brand-success-lighter = mix($brand-success, white, 10%);
+$brand-success-darker = #008d4c;
+$brand-warning = #f39c12;
+$brand-warning-lighter = mix($brand-warning, white, 10%);
+$brand-warning-darker = #e08e0b;
+$brand-error = #dd4b39;
+$brand-error-lighter = mix($brand-error, white, 10%);
+$brand-error-darker = #d73925;
 // $brand-secondary =                      $brand-primary;
 
 /* Gray Colors */
