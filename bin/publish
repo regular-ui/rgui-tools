@@ -4,6 +4,7 @@
 # rgui-tools gh-pages
 git add -A .
 git commit -m $version
+git push origin master
 git tag $version
 git push origin $version
 npm publish

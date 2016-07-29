@@ -24,6 +24,6 @@ gulp.task('lint', (done) => {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint-watch', ['lint'], (done) => {
+gulp.task('lint-watch', (done) => {
     gulp.watch(SRC_PATHES, ['lint']);
 });
