@@ -2,13 +2,13 @@
 
 'use strict';
 
+let execSync = require('child_process').execSync;
+
 let program = require('commander');
 program
     .usage('rgui-tools-init <repo>')
     .option('-c, --components <components>', 'Component List, like: Sample, AnotherSample')
     .parse(process.argv);
-
-let execSync = require('child_process').execSync;
 
 let repo = program.args[0] + '';
 if(!repo.startsWith('ui-'))

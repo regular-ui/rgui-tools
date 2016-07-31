@@ -10,6 +10,7 @@ program
     .usage('[options] <task>')
     .version(pkg.version)
     .command('init [options] <repo>', 'init a repo')
+    .command('publish [options] <version>', 'publish a version')
     .option('-w, --watch', 'watch')
     .option('-l, --library <library>', 'output library name when dist')
     .option('--devtool <devtool>', 'dev tool when dist')
@@ -23,13 +24,14 @@ program
     .parse(process.argv);
 
 let command = program.args[0];
+
 if(!command)
     return program.help();
-if(command === 'init')
+if(command === 'init' || command === 'publish')
     return;
 if(!fs.existsSync(process.cwd() + '/package.json')) {
     console.error('error: Not a RGUI package');
-    console.error('Please cd to a RGUI package directory or use `rgui-tools init` to create a new package.');
+    console.error('Please `cd` into a RGUI package directory or use `rgui-tools init` to create a new package.');
     return;
 }
 
