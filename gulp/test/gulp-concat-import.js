@@ -19,7 +19,11 @@ module.exports = function(filename, options) {
         if(file.isStream())
             throw new PluginError('gulp-concat-import', 'Streaming not supported');
 
-        pathes.push(file.path);
+        let filePath = file.path;
+        if (path.sep === '\\')
+            filePath = filePath.split(path.sep).join('/');
+
+        pathes.push(filePath);
         lastFile = file;
 
         cb();
