@@ -57,7 +57,7 @@ module.exports = function(options) {
 
         // 如果当前文件为index.md，并且组件有js代码，则生成api
         let jspath = path.join(file.path, '../../index.js');
-        if(file.path.endsWith('/index.md') && fs.existsSync(jspath))
+        if(path.basename(file.path) === 'index.md' && fs.existsSync(jspath))
             data.api = jsAPI.render(jspath, templates['js-api']);
 
         let html;
@@ -70,7 +70,7 @@ module.exports = function(options) {
 
         // 变更路径，修改file
         file.base = file.cwd;
-        file.path = file.path.replace(/demo\/(.+)\.md$/, '$1.html');
+        file.path = file.path.replace(/demo[\\\/](.+)\.md$/, '$1.html');
         file.contents = new Buffer(html);
 
         options.verbose && console.log('[' + chalk.grey(new Date().toLocaleTimeString()) + ']', chalk.blue('Building'), 'doc/' + path.relative(file.base, file.path));
