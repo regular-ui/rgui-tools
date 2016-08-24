@@ -2,15 +2,18 @@
 
 'use strict';
 
-let execSync = require('child_process').execSync;
+const execSync = require('child_process').execSync;
 
-let program = require('commander');
+/**
+ * 解析命令
+ */
+const program = require('commander');
 program
     .usage('rgui-tools-init <repo>')
     .option('-c, --components <components>', 'Component List, like: Sample, AnotherSample')
     .parse(process.argv);
 
-let repo = program.args[0] + '';
+const repo = program.args[0] + '';
 if(!repo.startsWith('ui-'))
     return console.log('Repo name should start with `ui-`!');
 
@@ -25,22 +28,27 @@ console.log(execSync([
 ].join(';')) + '');
 process.chdir(repo);
 
-program.components = program.components.split(',');
-if(!program.components.length)
+/**
+ * 处理配置
+ */
+global.settings = {
+    components: program.components.split(','),
+}
+if(!settings.components.length)
     return;
 
-program.components = program.components.map((component) => {
-    return {
-        name: component,
-        lowerName: component[0].toLowerCase() + component.slice(1)
-    }
-});
+settings.components = settings.components.map((component) => ({
+    name: component,
+    lowerName: component[0].toLowerCase() + component.slice(1)
+}));
 
-console.log(execSync(`mv sample ${program.components[0].lowerName}`) + '');
+console.log(execSync(`mv sample ${settings.components[0].lowerName}`) + '');
 
-// Replace
-let gulp = require('gulp');
-gulp.program = program;
+/**
+ * 引入gulp
+ */
+// 给gulp配置log染色
+const gulp = require('../lib/logEventsGulp.js');
 
 require('../gulp/replace/index.js');
 gulp.start('replace');

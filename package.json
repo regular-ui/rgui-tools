@@ -1,7 +1,7 @@
 {
   "name": "rgui-tools",
   "description": "Developer Tools for Regular UI",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "author": "Rainfore <rainforest92@126.com>",
   "bin": {
     "rgui-tools": "./bin/rgui-tools"
@@ -43,6 +43,7 @@
     "gulp-if": "^2.0.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
     "gulp-rimraf": "^0.2.0",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",

@@ -2,10 +2,13 @@
 
 'use strict';
 
-let fs = require('fs');
-let pkg = require('../package.json');
+const fs = require('fs');
+const pkg = require('../package.json');
 
-let program = require('commander');
+/**
+ * 解析命令
+ */
+const program = require('commander');
 program
     .usage('[options] <task>')
     .version(pkg.version)
@@ -14,7 +17,7 @@ program
     .option('-w, --watch', 'watch')
     .option('-l, --library <library>', 'output library name when dist')
     .option('--devtool <devtool>', 'dev tool when dist')
-    .option('-O, --online', 'online mode')
+    .option('-O, --online-mode', 'online mode')
     .option('-s, --single-run', 'single run when test')
     .option('-b, --browsers <browsers>', 'browsers used when test')
     .option('-r, --reporters <reporters>', 'build reports when test')
@@ -22,32 +25,58 @@ program
     .option('-f, --fix', 'fix when lint')
     .option('-t, --tests', 'tests when lint')
     .parse(process.argv);
+program.online = program.onlineMode;
 
-let command = program.args[0];
-
-if(!command)
+const command = program.args[0];
+if (!command)
     return program.help();
-if(command === 'init' || command === 'publish')
+if (command === 'init' || command === 'publish')
     return;
-if(!fs.existsSync(process.cwd() + '/package.json')) {
+if (!fs.existsSync(process.cwd() + '/package.json')) {
     console.error('error: Not a RGUI package');
     console.error('Please `cd` into a RGUI package directory or use `rgui-tools init` to create a new package.');
     return;
 }
 
-if(command === 'dev')
-    program.fix = true;
+/**
+ * 处理配置
+ */
+// `config`这个词太多人用了，容易冲突
+global.settings = {
+    command,
+    watch: false,
+    online: false,
+    verbose: false,
+    fix: false,
+};
 
-let gulp = require('../lib/logEventsGulp.js');
-gulp.program = program;
+// 合并program的配置
+for (let key in settings) {
+    if (settings.hasOwnProperty(key) && program[key] !== undefined)
+        settings[key] = program[key];
+}
+
+if (command === 'dev') {
+    settings.watch = true;
+    settings.fix = true;
+} else if (command === 'online') {
+    settings.watch = false;
+    settings.online = true;
+}
+
+/**
+ * 引入gulp
+ */
+// 给gulp配置log染色
+const gulp = require('../lib/logEventsGulp.js');
 
 // 分开引用，加快gulp启动速度
-if(command.startsWith('dist'))
+if (command.startsWith('dist'))
     require('../gulp/dist/index.js');
-else if(command.startsWith('test'))
-    require('../gulp/test/index.js');
-else if(command.startsWith('lint'))
+else if (command.startsWith('lint'))
     require('../gulp/lint/index.js');
+else if (command.startsWith('test'))
+    require('../gulp/test/index.js');
 else
     require('../gulpfile.js');
 

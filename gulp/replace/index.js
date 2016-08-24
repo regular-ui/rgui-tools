@@ -1,13 +1,15 @@
 'use strict';
 
-let gulp = require('gulp');
-let program = gulp.program || {};
-let all = require('gulp-all');
+const gulp = require('gulp');
+const all = require('gulp-all');
 
-let replace = require('./gulp-replace');
+const replace = require('gulp-replace');
 
 gulp.task('replace', (done) => {
+    const component = settings.components[0];
+
     return gulp.src('./**')
-        .pipe(replace(program.components[0]))
+        .pipe(replace(/Sample/g, component.name))
+        .pipe(replace(/sample/g, component.lowerName))
         .pipe(gulp.dest('.'));
 });
