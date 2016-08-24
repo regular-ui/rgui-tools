@@ -2,9 +2,8 @@
 
 const gulp = require('gulp');
 const rm = require('gulp-rimraf');
+const concatFilenames = require('gulp-concat-filenames');
 const Server = require('karma').Server;
-
-const concatImport = require('./gulp-concat-import.js');
 
 /**
  * Test clean
@@ -15,7 +14,9 @@ gulp.task('test-clean', (done) => {
 
 gulp.task('test-entry', (done) => {
     return gulp.src('./*/test/*.js', { read: false })
-        .pipe(concatImport('index.js'))
+        .pipe(concatFilenames('index.js', {
+            template: (filename) => `import '${filename}';`,
+        }))
         .pipe(gulp.dest('./.rgui-cache/test'));
 });
 

@@ -75,10 +75,10 @@ const gulp = require('../lib/logEventsGulp.js');
 // 分开引用，加快gulp启动速度
 if (command.startsWith('dist'))
     require('../gulp/dist/index.js');
-else if (command.startsWith('lint'))
-    require('../gulp/lint/index.js');
 else if (command.startsWith('test'))
     require('../gulp/test/index.js');
+else if (command.startsWith('lint'))
+    require('../gulp/lint/index.js');
 else
     require('../gulpfile.js');
 

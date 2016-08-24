@@ -1,17 +1,21 @@
 'use strict';
 
+const fs = require('fs');
 const gulp = require('gulp');
+const gulpIf = require('gulp-if');
 
 const sequence = require('run-sequence');
 const rm = require('gulp-rimraf');
 const rename = require('gulp-rename');
+const concatFilenames = require('gulp-concat-filenames');
+const header = require('gulp-header');
+const footer = require('gulp-footer');
+const file = require('gulp-file');
 const uglify = require('gulp-uglify');
 const minifycss = require('gulp-minify-css');
 const mcss = require('gulp_mcss');
 const webpack = require('gulp-webpack');
 
-const jsEntry = require('./gulp-js-entry.js');
-const cssEntry = require('./gulp-css-entry.js');
 const webpackConf = require('../../webpack.conf.js');
 
 // @TODO: JS和MCSS流程统一
@@ -34,8 +38,12 @@ gulp.task('cache-js', (done) => {
         webpackConfig.devtool = 'eval';
     }
 
-    const stream = gulp.src('./package.json')
-        .pipe(jsEntry())
+    const stream = gulp.src('./node_modules/rgui-*/index.js')
+        .pipe(concatFilenames('index.js', {
+            template: (filename) => `export * from '${filename}';`,
+        }))
+        .pipe(file('index.js', '')) // 如果没有文件时产生一个文件。好像无需判断，自动不会覆盖前面的文件？
+        .pipe(gulpIf(fs.existsSync('./index.js'), footer(`export * from '../../index.js';\n`)))
         .pipe(gulp.dest('./.rgui-cache/js'))
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('./doc/js'));
@@ -54,8 +62,13 @@ gulp.task('cache-js-watch', ['cache-js']);
  * Cache CSS
  */
 gulp.task('cache-css', (done) => {
-    const stream = gulp.src('./package.json')
-        .pipe(cssEntry())
+    const stream = gulp.src('./node_modules/rgui-*/index.mcss')
+        .pipe(concatFilenames('index.mcss', {
+            template: (filename) => `@import '${filename}';`,
+        }))
+        .pipe(file('index.mcss', ''))
+        .pipe(header(`@import 'entry-css/index.mcss';\n`))
+        .pipe(gulpIf(fs.existsSync('./index.mcss'), footer(`@import '../../index.mcss';\n`)))
         .pipe(gulp.dest('./.rgui-cache/css'))
         .pipe(mcss({
             pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],
