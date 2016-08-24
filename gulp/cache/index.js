@@ -1,80 +1,80 @@
 'use strict';
 
-let gulp = require('gulp');
+const gulp = require('gulp');
 
-let rm = require('gulp-rimraf');
-let rename = require('gulp-rename');
-let uglify = require('gulp-uglify');
-let minifycss = require('gulp-minify-css');
-let mcss = require('gulp_mcss');
-let webpack = require('gulp-webpack');
+const sequence = require('run-sequence');
+const rm = require('gulp-rimraf');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const minifycss = require('gulp-minify-css');
+const mcss = require('gulp_mcss');
+const webpack = require('gulp-webpack');
 
-let jsEntry = require('./gulp-js-entry.js');
-let cssEntry = require('./gulp-css-entry.js');
-let webpackConf = require('../../webpack.conf.js');
+const jsEntry = require('./gulp-js-entry.js');
+const cssEntry = require('./gulp-css-entry.js');
+const webpackConf = require('../../webpack.conf.js');
 
+// @TODO: JS和MCSS流程统一
+
+/**
+ * Cache clean
+ */
 gulp.task('cache-clean', (done) => {
-    return gulp.src('./.rgui-cache', {read: false}).pipe(rm());
+    return gulp.src('./.rgui-cache', { read: false }).pipe(rm());
 });
 
 /**
- * js tasks
+ * Cache JS
  */
-// gulp.task('cache-js-index-pack', (done) => {
-//     return gulp.src('./package.json')
-//         .pipe(jsEntry())
-//         .pipe(gulp.dest('./.rgui-cache/js'));
-// });
+gulp.task('cache-js', (done) => {
+    const webpackConfig = webpackConf();
 
-function cacheJS(watch) {
-    return (done) => {
-        return gulp.src('./package.json')
-            .pipe(jsEntry())
-            .pipe(gulp.dest('./.rgui-cache/js'))
-            .pipe(webpack(webpackConf({watch, devtool: 'eval'})))
-            .pipe(gulp.dest('./doc/js'))
-            .pipe(rename({suffix: '.min'}))
-            .pipe(uglify())
-            .pipe(gulp.dest('./doc/js'));
+    if (settings.watch) {
+        webpackConfig.watch = true;
+        webpackConfig.devtool = 'eval';
     }
-}
 
-gulp.task('cache-js', cacheJS(false));
-gulp.task('cache-js-watch', cacheJS(true));
+    const stream = gulp.src('./package.json')
+        .pipe(jsEntry())
+        .pipe(gulp.dest('./.rgui-cache/js'))
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('./doc/js'));
+
+    if (settings.compress || settings.online) {
+        stream.pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(gulp.dest('./doc/js'));
+    }
+
+    return stream;
+});
+gulp.task('cache-js-watch', ['cache-js']);
 
 /**
- * css tasks
+ * Cache CSS
  */
-// gulp.task('cache-css-index-pack', (done) => {
-//     return gulp.src(__dirname + '/cache/css/index.mcss')
-//         .pipe(gulp.dest('./.rgui-cache/css'));
-// });
-
-// gulp.task('cache-css-index-pack', ['cache-css-index-copy'], (done) => {
-//     return gulp.src('./.rgui-cache/css/index.mcss')
-//         .pipe(cssEntry())
-//         .pipe(gulp.dest('./doc/css'));
-// });
-
 gulp.task('cache-css', (done) => {
-    return gulp.src('./package.json')
+    const stream = gulp.src('./package.json')
         .pipe(cssEntry())
         .pipe(gulp.dest('./.rgui-cache/css'))
         .pipe(mcss({
             pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],
             importCSS: true
         }))
-        .pipe(gulp.dest('./doc/css'))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('./doc/css'));
+
+    if (settings.compress || settings.online) {
+        stream.pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
         .pipe(gulp.dest('./doc/css'));
+    }
+
+    return stream;
 });
-gulp.task('cache-css-watch', ['cache-css'], (done) => {
-    gulp.watch('**/*.mcss', ['cache-css']);
-});
+gulp.task('cache-css-watch', ['cache-css'], (done) => gulp.watch('**/*.mcss', ['cache-css']));
 
 /**
- * export tasks
+ * Cache
  */
-gulp.task('cache-build', ['cache-js', 'cache-css']);
-gulp.task('cache-watch', ['cache-js-watch', 'cache-css-watch']);
+gulp.task('cache', settings.watch ? ['cache-js-watch', 'cache-css-watch'] : ['cache-js', 'cache-css']);
+

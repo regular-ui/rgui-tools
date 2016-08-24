@@ -7,22 +7,23 @@ let preprocessors = {};
 preprocessors[filePath] = 'webpack';
 
 let webpackConfig = require('./webpack.conf.js')({
-    output: {libraryTarget: 'umd'}
+    output: { libraryTarget: 'umd' },
 });
-webpackConfig.module.loaders.push({test: /\.js$/, exclude: /(test|node_modules)\//, loader: require.resolve('isparta-loader')});
+webpackConfig.module.loaders.push({ test: /\.js$/, exclude: /(test|node_modules)\//, loader: require.resolve('isparta-loader') });
 
 module.exports = function(config) {
     config.set({
+        singleRun: true,
         browsers: ['PhantomJS'],    // 'Chrome', 'Firefox', 'IE', 'IE9', 'IE8'
         frameworks: ['mocha', 'expect'],
         files: [
             './node_modules/babel-polyfill/dist/polyfill.min.js',
             './node_modules/regularjs/dist/regular.min.js',
-            filePath
+            filePath,
         ],
         preprocessors: preprocessors,
         webpack: webpackConfig,
-        webpackMiddleware: {noInfo: true},
+        webpackMiddleware: { noInfo: true },
         reporters: ['nyan', 'coverage'],
         coverageReporter: {
             dir: `${reportsPath}/coverage`,

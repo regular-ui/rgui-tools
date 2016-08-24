@@ -7,6 +7,9 @@ const execSync = require('child_process').execSync;
 const readline = require('readline');
 const semver = require('semver');
 
+/**
+ * 解析命令
+ */
 const program = require('commander');
 program
     .usage('rgui-tools-publish <version>')
@@ -24,6 +27,9 @@ if(!fs.existsSync(pkgPath)) {
     return;
 }
 
+/**
+ * 接收输入
+ */
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,

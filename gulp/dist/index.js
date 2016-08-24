@@ -1,68 +1,87 @@
 'use strict';
 
-let gulp = require('gulp');
-let program = gulp.program || {};
+const gulp = require('gulp');
 
-let sequence = require('run-sequence');
-let rm = require('gulp-rimraf');
-let rename = require('gulp-rename');
-let uglify = require('gulp-uglify');
-let minifycss = require('gulp-minify-css');
-let mcss = require('gulp_mcss');
-let webpack = require('gulp-webpack');
+const sequence = require('run-sequence');
+const rm = require('gulp-rimraf');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const minifycss = require('gulp-minify-css');
+const mcss = require('gulp_mcss');
+const webpack = require('gulp-webpack');
 
-let webpackConf = require('../../webpack.conf.js');
+const webpackConf = require('../../webpack.conf.js');
 
 // @TODO: JS和MCSS流程统一
 
+/**
+ * Dist clean
+ */
 gulp.task('dist-clean', (done) => {
-    return gulp.src('./dist', {read: false}).pipe(rm());
+    return gulp.src('./dist', { read: false }).pipe(rm());
 });
 
-const distJS = function(watch) {
-    return (done) => {
-        return gulp.src('./index.js')
-            .pipe(webpack(webpackConf({
-                watch,
-                output: {
-                    filename: 'index.js',
-                    library: program.library || 'RGUI',
-                    libraryTarget: 'umd'
-                },
-                devtool: program.devtool,
-            })))
-            .pipe(gulp.dest('./dist/js'))
-            .pipe(rename({suffix: '.min'}))
-            .pipe(uglify())
-            .pipe(gulp.dest('./dist/js'));
+/**
+ * Dist JS
+ */
+gulp.task('dist-js', (done) => {
+    const webpackConfig = webpackConf({
+        output: {
+            filename: settings.output + '.js',
+            library: settings.library,
+            libraryTarget: 'umd'
+        },
+        devtool: settings.devtool,
+    });
+
+    if (settings.watch) {
+        webpackConfig.watch = true;
+        webpackConfig.devtool = 'eval';
     }
-}
 
-gulp.task('dist-js', distJS(false));
-gulp.task('dist-js-watch', distJS(true));
+    if (settings.devtool)
+        webpackConfig.devtool = settings.devtool;
 
+    const stream = gulp.src('./index.js')
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('./dist/js'));
+
+    if (settings.compress || settings.online) {
+        stream.pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/js'));
+    }
+
+    return stream;
+});
+gulp.task('dist-js-watch', ['dist-js']);
+
+/**
+ * Dist CSS
+ */
 gulp.task('dist-css', (done) => {
-    return gulp.src('./index.mcss')
+    const stream = gulp.src('./index.mcss')
         .pipe(mcss({
             watch: true,
             pathes: [__dirname + '/../../node_modules/mass', './node_modules'],
             importCSS: true
         }))
-        .pipe(gulp.dest('./dist/css'))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(rename({ basename: settings.output }))
+        .pipe(gulp.dest('./dist/css'));
+
+    if (settings.compress || settings.online) {
+        stream.pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
         .pipe(gulp.dest('./dist/css'));
-});
-gulp.task('dist-css-watch', ['dist-css'], (done) => {
-    gulp.watch('**/*.mcss', ['dist-css']);
-});
+    }
 
-gulp.task('dist-build', ['dist-js', 'dist-css']);
-gulp.task('dist-watch', ['dist-js-watch', 'dist-css-watch']);
+    return stream;
+});
+gulp.task('dist-css-watch', ['dist-css'], (done) => gulp.watch('**/*.mcss', ['dist-css']));
 
+/**
+ * Dist
+ */
 gulp.task('dist', (done) => {
-    if(program.watch)
-        sequence('dist-clean', 'dist-watch', done);
-    else
-        sequence('dist-clean', 'dist-build', done);
+    sequence('dist-clean', settings.watch ? ['dist-js-watch', 'dist-css-watch'] : ['dist-js', 'dist-css'], done);
 });

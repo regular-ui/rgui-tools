@@ -15,15 +15,14 @@ program
     .command('init [options] <repo>', 'init a repo')
     .command('publish [options] <version>', 'publish a version')
     .option('-w, --watch', 'watch')
-    .option('-l, --library <library>', 'output library name when dist')
-    .option('--devtool <devtool>', 'dev tool when dist')
     .option('-O, --online-mode', 'online mode')
-    .option('-s, --single-run', 'single run when test')
-    .option('-b, --browsers <browsers>', 'browsers used when test')
-    .option('-r, --reporters <reporters>', 'build reports when test')
-    .option('-v, --verbose', 'verbose')
+    .option('-o, --output <output>', 'output file name when dist')
+    .option('--library <library>', 'output library name when dist')
+    .option('--devtool <devtool>', 'dev tool when dist')
+    .option('--browsers <browsers>', 'browsers used when test')
+    .option('--reporters <reporters>', 'build reports when test')
     .option('-f, --fix', 'fix when lint')
-    .option('-t, --tests', 'tests when lint')
+    .option('-v, --verbose', 'verbose')
     .parse(process.argv);
 program.online = program.onlineMode;
 
@@ -48,6 +47,9 @@ global.settings = {
     online: false,
     verbose: false,
     fix: false,
+    library: 'RGUI',
+    output: 'index',
+    devtools: undefined,
 };
 
 // 合并program的配置

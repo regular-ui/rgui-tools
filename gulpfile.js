@@ -1,20 +1,16 @@
 'use strict';
 
-let gulp = require('gulp');
-let sequence = require('run-sequence');
-let ghpages = require('gh-pages');
+const gulp = require('gulp');
+const sequence = require('run-sequence');
+const ghpages = require('gh-pages');
 
-require('./gulp/doc/index.js');
-require('./gulp/cache/index.js');
-require('./gulp/lint/index.js');
+require('./gulp/cache');
+require('./gulp/doc');
+require('./gulp/lint');
 
-gulp.task('dev', ['doc-watch', 'cache-watch', 'lint-watch']);
+gulp.task('dev', ['cache', 'doc', 'lint']);
 
-gulp.task('doc', (done) => {
-    sequence(['cache-clean', 'doc-clean'], ['doc-build', 'cache-build'], done);
-});
-
-gulp.task('gh-pages', (done) => {
+gulp.task('gh-pages', ['doc'], (done) => {
     ghpages.clean();
     ghpages.publish('doc', {
         src: ['**/*', '!**/__*']
@@ -26,4 +22,3 @@ gulp.task('gh-pages', (done) => {
         done();
     });
 });
-

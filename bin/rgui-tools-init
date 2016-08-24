@@ -14,7 +14,7 @@ program
     .parse(process.argv);
 
 const repo = program.args[0] + '';
-if(!repo.startsWith('ui-'))
+if (!repo.startsWith('ui-'))
     return console.log('Repo name should start with `ui-`!');
 
 const URL = 'https://github.com/regular-ui/ui-sample.git';
@@ -34,7 +34,7 @@ process.chdir(repo);
 global.settings = {
     components: program.components.split(','),
 }
-if(!settings.components.length)
+if (!settings.components.length)
     return;
 
 settings.components = settings.components.map((component) => ({

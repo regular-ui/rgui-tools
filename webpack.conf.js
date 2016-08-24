@@ -1,6 +1,6 @@
 'use strict';
 
-let babelConfig = require('./babelrc.js');
+const babelConfig = require('./babelrc.js');
 
 module.exports = function(options) {
     return Object.assign({
@@ -14,15 +14,15 @@ module.exports = function(options) {
                 root: 'Regular',
                 amd: 'Regular',
                 commonjs: 'regularjs',
-                commonjs2: 'regularjs'
-            }
+                commonjs2: 'regularjs',
+            },
         },
         babel: babelConfig,
         module: {
             loaders: [
                 { test: /\.rgl$/, loader: require.resolve('rgl-loader') },
-                { test: /\.js$/, exclude: /node_modules\/(?!rgui-)/, loader: require.resolve('babel-loader') }
-            ]
-        }
-    }, options || {});
+                { test: /\.js$/, exclude: /node_modules\/(?!rgui-)/, loader: require.resolve('babel-loader') },
+            ],
+        },
+    }, options);
 }
