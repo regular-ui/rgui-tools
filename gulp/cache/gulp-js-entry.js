@@ -25,9 +25,9 @@ module.exports = function(options) {
             console.error(e);
         }
 
-        const basePath = "export * from 'rgui-ui-base';\n";
-        if(!~contents.indexOf(basePath))
-            contents.push(basePath);
+        // const basePath = ""; //"export * from 'rgui-ui-base';\n";
+        // if(!~contents.indexOf(basePath))
+        //     contents.push(basePath);
         if(fs.existsSync('./index.js'))
             contents.push(`export * from '../../index.js';\n`);
 

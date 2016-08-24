@@ -51,7 +51,7 @@ Are you sure to continue? (yes/no) `, (answer) => {
         `git add -A .`,
         `git commit -m "v${version}"`,
         `npm publish`,
-        `git push origin master`,
+        `git push`,
         `git tag v${version}`,
         `git push origin v${version}`,
     ]);

@@ -20,6 +20,7 @@ $font-size-xs = 10px;
 $font-size-sm = 12px;
 $font-size-lg = 16px;
 $font-size-xl = 18px;
+$line-height-base = 1.6;
 
 /* Padding */
 $padding-base = 6px 14px;
@@ -120,12 +121,13 @@ $field_placeholder_color = #bbb;
 // Item Variables:
 // ========================================================================
 
-/* Form Control Item */
+/* Dimensions */
 $item_padding = 3px 14px;
 $item-hover_background = #f4f4f4;
 $item-hover_color = #444;
 $item-hover_border = null;
 
+/* Colors */
 $item-selected_background = $brand-primary;
 $item-selected_color = white;
 $item-selected_border = null;

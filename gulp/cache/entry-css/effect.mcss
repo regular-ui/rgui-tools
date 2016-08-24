@@ -1,0 +1,10 @@
+$fadeIn();
+$fadeOut();
+$bounceIn();
+$bounceOut();
+$fadeInY(-10px);
+$fadeOutY(-10px);
+
+.animated { $animation-duration: 0.2s; }
+.animated-long { $animation-duration: 0.5s; }
+.animated-short { $animation-duration: 0.1s; }

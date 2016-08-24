@@ -3,3 +3,4 @@
 @abstract 'entry-css/helper.mcss';
 @abstract 'entry-css/function.mcss';
 @abstract 'entry-css/font-awesome.css';
+// @abstract 'entry-css/effect.mcss';

@@ -35,6 +35,9 @@ if(!fs.existsSync(process.cwd() + '/package.json')) {
     return;
 }
 
+if(command === 'dev')
+    program.fix = true;
+
 let gulp = require('../lib/logEventsGulp.js');
 gulp.program = program;
 
