@@ -9,7 +9,7 @@ preprocessors[filePath] = 'webpack';
 let webpackConfig = require('./webpack.conf.js')({
     output: { libraryTarget: 'umd' },
 });
-webpackConfig.module.loaders.push({ test: /\.js$/, exclude: /(test|node_modules)\//, loader: require.resolve('isparta-loader') });
+webpackConfig.module.loaders.push({ test: /\.js$/, exclude: /(test|node_modules)[\\\/]/, loader: require.resolve('isparta-loader') });
 
 module.exports = function(config) {
     config.set({

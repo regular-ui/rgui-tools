@@ -2,7 +2,7 @@
 
 let rule = {
     example: /<div class="m-example(?:.*?)"><\/div>([\s\S]+?)(?:##|$)/g,
-    pre: /```(.+?)\n([\s\S]+?)\n```/g
+    pre: /```(.+?)\n([\s\S]+?)\n```/g,
 }
 
 function parse(content) {

@@ -3,6 +3,7 @@
   "description": "Developer Tools for Regular UI",
   "version": "0.1.0",
   "author": "Rainfore <rainforest92@126.com>",
+  "contributors": ["shhider <shhider@163.com>"],
   "bin": {
     "rgui-tools": "./bin/rgui-tools"
   },
