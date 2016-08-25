@@ -4,7 +4,7 @@ const gulp = require('gulp');
 const gulpIf = require('gulp-if');
 
 const eslint = require('gulp-eslint');
-const eslintConfig = require('../../.eslintrc.js');
+const eslintConfig = require('eslint-config-rgui');
 
 if(settings.fix)
     eslintConfig.fix = true;
