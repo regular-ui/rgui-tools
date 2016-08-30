@@ -51,7 +51,7 @@ Are you sure to continue? (yes/no) `, (answer) => {
 
     let shells = [];
     if(program.doc)
-        shells = shells.concat(['rgui-tools doc', 'rgui-tools gh-pages']);
+        shells = shells.concat(['rgui-tools gh-pages']);
 
     shells = shells.concat([
         `git add -A .`,

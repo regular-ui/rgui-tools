@@ -42,7 +42,7 @@ gulp.task('cache-js', (done) => {
         .pipe(concatFilenames('index.js', {
             template: (filename) => `export * from '${filename}';`,
         }))
-        .pipe(file('index.js', '')) // 如果没有文件时产生一个文件。好像无需判断，自动不会覆盖前面的文件？
+        .pipe(gulpIf((file) => file.isNull(), file('index.js', '')))
         .pipe(gulpIf(fs.existsSync('./index.js'), footer(`export * from '../../index.js';\n`)))
         .pipe(gulp.dest('./.rgui-cache/js'))
         .pipe(webpack(webpackConfig));
@@ -64,7 +64,7 @@ gulp.task('cache-css', (done) => {
         .pipe(concatFilenames('index.mcss', {
             template: (filename) => `@import '${filename}';`,
         }))
-        .pipe(file('index.mcss', ''))
+        .pipe(gulpIf((file) => file.isNull(), file('index.mcss', '')))
         .pipe(header(`@import 'entry-css/index.mcss';\n`))
         .pipe(gulpIf(fs.existsSync('./index.mcss'), footer(`@import '../../index.mcss';\n`)))
         .pipe(gulp.dest('./.rgui-cache/css'))

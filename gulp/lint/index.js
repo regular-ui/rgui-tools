@@ -6,7 +6,11 @@ const gulpIf = require('gulp-if');
 const eslint = require('gulp-eslint');
 const eslintConfig = require('eslint-config-rgui');
 
-if(settings.fix)
+eslintConfig.envs = [];
+for (let key in eslintConfig.env)
+    eslintConfig.envs.push(key);
+
+if (settings.fix)
     eslintConfig.fix = true;
 
 // if(settings.tests) {
@@ -14,21 +18,20 @@ if(settings.fix)
 //     eslintConfig.globals.push('expect');
 // }
 
-const SRC_PATHES = ['*.js', '*/*.js', '!node_modules/**', '!doc/**', '!dist/**', '!test-reports/**'];
-const TEST_PATHES = ['*/test/*.js', '!node_modules/**', '!doc/**', '!dist/**', '!test-reports/**'];
-
+const SRC_PATHES = ['*.js', '*/*.js', '!./node_modules/**', '!./doc/**', '!./dist/**', '!./test-reports/**'];
+const TEST_PATHES = ['*/test/*.js', '!./node_modules/**', '!./doc/**', '!./dist/**', '!./test-reports/**'];
 /**
  * Lint Run
  */
 gulp.task('lint-run', (done) => {
-    let stream = gulp.src(settings.tests ? TEST_PATHES : SRC_PATHES)
+    let stream = gulp.src(SRC_PATHES)
         .pipe(eslint(eslintConfig))
         .pipe(eslint.format());
 
-    if(settings.fix)
+    if (settings.fix)
         stream = stream.pipe(gulpIf((file) => file.eslint !== null && file.eslint.fixed, gulp.dest('.')));
 
-    if(!settings.watch)
+    if (!settings.watch)
         stream = stream.pipe(eslint.failAfterError());
 
     return stream;
