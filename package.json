@@ -1,7 +1,7 @@
 {
   "name": "rgui-tools",
   "description": "Developer Tools for Regular UI",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Rainfore <rainforest92@126.com>",
   "contributors": ["shhider <shhider@163.com>"],
   "bin": {
