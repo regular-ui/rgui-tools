@@ -2,6 +2,17 @@
 
 Developer Tools for Regular UI
 
+[![NPM Version][npm-img]][npm-url]
+[![Dependencies][david-img]][david-url]
+[![NPM Download][download-img]][download-url]
+
+[npm-img]: http://img.shields.io/npm/v/rgui-tools.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/rgui-tools
+[david-img]: http://img.shields.io/david/regular-ui/rgui-tools.svg?style=flat-square
+[david-url]: https://david-dm.org/regular-ui/rgui-tools
+[download-img]: https://img.shields.io/npm/dm/rgui-tools.svg?style=flat-square
+[download-url]: https://npmjs.org/package/rgui-tools
+
 ## Commands
 
 - `rgui-tools help`：查看帮助
@@ -10,7 +21,7 @@ Developer Tools for Regular UI
 以下命令在仓库目录下（如`./ui-sample`）运行：
 
 - `rgui-tools doc`：生成文档
-- `rgui-tools gh-pages`：生成文档，并将`./doc`目录下的文档发布到该仓库的`gh-pages`中。
+- `rgui-tools gh-pages`：重新生成文档，并将`./doc`目录下的文档发布到该仓库的`gh-pages`中。
 - `rgui-tools dist`：打包当前目录下的index文件
     - `-o, --output <output>`：库的文件名（不带后缀）。默认为`index`。
     - `--library <library>`：库的命名空间。默认为`RGUI`。
@@ -21,11 +32,12 @@ Developer Tools for Regular UI
 - `rgui-tools lint`：验证代码风格
     - `-f, --fix`：验证时自动修复
 - `rgui-tools publish`：修改version，提交代码，打tag，然后发布npm版本。
-- `-w, --watch`：监听文件变更。上面的`doc`, `dist`, `test`, `lint`4种命令都可以配置该选项。
+- `-w, --watch`：监听文件变更。以上命令都可以配置该选项（默认不会监听）。
 - `-O, --online-mode`：线上模式。`test`命令配置该选项后，会设置测试报告为`mocha,coverage,coveralls`。
 - `-v, --verbose`：输出详细信息
 - `-V, --version`：当前版本
 
 集成命令：
 
-- `rgui-tools dev`：相当于`rgui-tools doc+lint --watch --fix`，始终监听文件，自动修复lint问题。
+- `rgui-tools dev`：生成文档+验证代码风格，始终监听文件，自动修复lint问题。相当于`rgui-tools doc,lint --watch --fix`。
+- `rgui-tools clean`：手动清理所有rgui-tools命令生成的文件（以上命令默认在初始运行时也会清理生成的文件）。相当于`rgui-tools doc-clean,cache-clean,dist-clean,test-clean`。

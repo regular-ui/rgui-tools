@@ -42,12 +42,12 @@ gulp.task('dist-js', (done) => {
     if (settings.devtool)
         webpackConfig.devtool = settings.devtool;
 
-    const stream = gulp.src('./index.js')
+    let stream = gulp.src('./index.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('./dist/js'));
 
     if (settings.compress || settings.online) {
-        stream.pipe(rename({ suffix: '.min' }))
+        stream = stream.pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
     }
@@ -60,7 +60,7 @@ gulp.task('dist-js-watch', ['dist-js']);
  * Dist CSS
  */
 gulp.task('dist-css', (done) => {
-    const stream = gulp.src('./index.mcss')
+    let stream = gulp.src('./index.mcss')
         .pipe(mcss({
             watch: true,
             pathes: [__dirname + '/../../node_modules/mass', './node_modules'],
@@ -70,7 +70,7 @@ gulp.task('dist-css', (done) => {
         .pipe(gulp.dest('./dist/css'));
 
     if (settings.compress || settings.online) {
-        stream.pipe(rename({ suffix: '.min' }))
+        stream = stream.pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
         .pipe(gulp.dest('./dist/css'));
     }

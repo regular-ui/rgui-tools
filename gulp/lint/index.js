@@ -21,13 +21,15 @@ const TEST_PATHES = ['*/test/*.js', '!node_modules/**', '!doc/**', '!dist/**', '
  * Lint Run
  */
 gulp.task('lint-run', (done) => {
-    const stream = gulp.src(settings.tests ? TEST_PATHES : SRC_PATHES)
+    let stream = gulp.src(settings.tests ? TEST_PATHES : SRC_PATHES)
         .pipe(eslint(eslintConfig))
-        .pipe(eslint.format())
-        .pipe(gulpIf((file) => file.eslint !== null && file.eslint.fixed, gulp.dest('.')));
+        .pipe(eslint.format());
+
+    if(settings.fix)
+        stream = stream.pipe(gulpIf((file) => file.eslint !== null && file.eslint.fixed, gulp.dest('.')));
 
     if(!settings.watch)
-        stream.pipe(eslint.failAfterError());
+        stream = stream.pipe(eslint.failAfterError());
 
     return stream;
 });

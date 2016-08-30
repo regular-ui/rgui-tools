@@ -58,10 +58,14 @@ for (let key in settings) {
         settings[key] = program[key];
 }
 
+// 处理集成命令
 if (command === 'dev') {
     settings.watch = true;
     settings.fix = true;
 } else if (command === 'online') {
+    settings.watch = false;
+    settings.online = true;
+} else if (command === 'gh-pages') {
     settings.watch = false;
     settings.online = true;
 }

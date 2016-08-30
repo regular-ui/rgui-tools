@@ -9,6 +9,7 @@ require('./gulp/doc');
 require('./gulp/lint');
 
 gulp.task('dev', ['doc', 'lint']);
+gulp.task('clean', ['doc-clean', 'cache-clean', 'dist-clean', 'test-clean']);
 
 gulp.task('gh-pages', ['doc'], (done) => {
     ghpages.clean();

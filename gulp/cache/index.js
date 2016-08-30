@@ -38,23 +38,21 @@ gulp.task('cache-js', (done) => {
         webpackConfig.devtool = 'eval';
     }
 
-    const stream = gulp.src('./node_modules/rgui-*/index.js')
+    let stream = gulp.src('./node_modules/rgui-*/index.js')
         .pipe(concatFilenames('index.js', {
             template: (filename) => `export * from '${filename}';`,
         }))
         .pipe(file('index.js', '')) // 如果没有文件时产生一个文件。好像无需判断，自动不会覆盖前面的文件？
         .pipe(gulpIf(fs.existsSync('./index.js'), footer(`export * from '../../index.js';\n`)))
         .pipe(gulp.dest('./.rgui-cache/js'))
-        .pipe(webpack(webpackConfig))
-        .pipe(gulp.dest('./doc/js'));
+        .pipe(webpack(webpackConfig));
 
     if (settings.compress || settings.online) {
-        stream.pipe(rename({ suffix: '.min' }))
-        .pipe(uglify())
-        .pipe(gulp.dest('./doc/js'));
+        // stream = stream.pipe(rename({ suffix: '.min' }))
+        stream = stream.pipe(uglify());
     }
 
-    return stream;
+    return stream.pipe(gulp.dest('./doc/js'));
 });
 gulp.task('cache-js-watch', ['cache-js']);
 
@@ -62,7 +60,7 @@ gulp.task('cache-js-watch', ['cache-js']);
  * Cache CSS
  */
 gulp.task('cache-css', (done) => {
-    const stream = gulp.src('./node_modules/rgui-*/index.mcss')
+    let stream = gulp.src('./node_modules/rgui-*/index.mcss')
         .pipe(concatFilenames('index.mcss', {
             template: (filename) => `@import '${filename}';`,
         }))
@@ -73,16 +71,14 @@ gulp.task('cache-css', (done) => {
         .pipe(mcss({
             pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],
             importCSS: true
-        }))
-        .pipe(gulp.dest('./doc/css'));
+        }));
 
     if (settings.compress || settings.online) {
-        stream.pipe(rename({ suffix: '.min' }))
-        .pipe(minifycss())
-        .pipe(gulp.dest('./doc/css'));
+        // stream = stream.pipe(rename({ suffix: '.min' }))
+        stream = stream.pipe(minifycss());
     }
 
-    return stream;
+    return stream.pipe(gulp.dest('./doc/css'));
 });
 gulp.task('cache-css-watch', ['cache-css'], (done) => gulp.watch('**/*.mcss', ['cache-css']));
 

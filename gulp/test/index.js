@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const gulp = require('gulp');
 const rm = require('gulp-rimraf');
 const concatFilenames = require('gulp-concat-filenames');
@@ -9,10 +10,10 @@ const Server = require('karma').Server;
  * Test clean
  */
 gulp.task('test-clean', (done) => {
-    return gulp.src('./test-reports', { read: false }).pipe(rm());
+    return gulp.src(['./test-reports', './.rgui-cache/test'], { read: false }).pipe(rm());
 });
 
-gulp.task('test-entry', (done) => {
+gulp.task('test-entry', ['test-clean'], (done) => {
     return gulp.src('./*/test/*.js', { read: false })
         .pipe(concatFilenames('index.js', {
             template: (filename) => `import '${filename}';`,
@@ -23,7 +24,13 @@ gulp.task('test-entry', (done) => {
 /**
  * Test
  */
-gulp.task('test', ['test-clean', 'test-entry'], (done) => {
+gulp.task('test', ['test-entry'], (done) => {
+    // 如果没有测试用例则直接跳过
+    if (!fs.existsSync('./.rgui-cache/test/index.js')) {
+        console.log('Cannot find any tests, and skip `test` task');
+        return done();
+    }
+
     const config = { configFile: require.resolve('../../karma.conf.js') };
 
     if (settings.watch) {
@@ -44,5 +51,5 @@ gulp.task('test', ['test-clean', 'test-entry'], (done) => {
     if(settings.verbose)
         config.webpackMiddleware = {};
 
-    new Server(config, (code) => process.exit(code)).start();
+    new Server(config, (code) => done(code ? 'Test failed' : '')).start();
 });
