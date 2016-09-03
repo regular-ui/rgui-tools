@@ -2022,3 +2022,34 @@
 .u-icon-fonticons:before {
   content: "\f280";
 }
+
+// extend
+
+.u-icon-error-circle:before {
+  content: "\f057";
+}
+.u-icon-success-circle:before {
+  content: "\f058";
+}
+.u-icon-warning-circle:before {
+  content: "\f06a";
+}
+.u-icon-quote:before {
+  content: "\f10d";
+}
+
+.u-iconstack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+
+  > .u-icon {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
