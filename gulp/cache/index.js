@@ -38,12 +38,19 @@ gulp.task('cache-js', (done) => {
         webpackConfig.devtool = 'eval';
     }
 
-    let stream = gulp.src('./node_modules/rgui-*/index.js')
-        .pipe(concatFilenames('index.js', {
-            template: (filename) => `export * from '${filename}';`,
-        }))
-        .pipe(gulpIf((file) => file.isNull(), file('index.js', '')))
-        .pipe(gulpIf(fs.existsSync('./index.js'), footer(`export * from '../../index.js';\n`)))
+    let stream;
+
+    if (settings.independent)
+        stream = file('index.js', '', { src: true });
+    else {
+        stream = gulp.src('./node_modules/rgui-*/index.js')
+            .pipe(concatFilenames('index.js', {
+                template: (filename) => `export * from '${filename}';`,
+            }))
+            .pipe(gulpIf((file) => file.isNull(), file('index.js', '')));
+    }
+
+    stream = stream.pipe(footer(`export * from '../../index.js';\n`))
         .pipe(gulp.dest('./.rgui-cache/js'))
         .pipe(webpack(webpackConfig));
 
@@ -60,13 +67,19 @@ gulp.task('cache-js-watch', ['cache-js']);
  * Cache CSS
  */
 gulp.task('cache-css', (done) => {
-    let stream = gulp.src('./node_modules/rgui-*/index.mcss')
-        .pipe(concatFilenames('index.mcss', {
-            template: (filename) => `@import '${filename}';`,
-        }))
-        .pipe(gulpIf((file) => file.isNull(), file('index.mcss', '')))
-        .pipe(header(`@import 'entry-css/index.mcss';\n`))
-        .pipe(gulpIf(fs.existsSync('./index.mcss'), footer(`@import '../../index.mcss';\n`)))
+    let stream;
+    if (settings.independent)
+        stream = file('index.mcss', '', { src: true });
+    else {
+        stream = gulp.src('./node_modules/rgui-*/index.mcss')
+            .pipe(concatFilenames('index.mcss', {
+                template: (filename) => `@import '${filename}';`,
+            }))
+            .pipe(gulpIf((file) => file.isNull(), file('index.mcss', '')))
+    }
+
+    stream = stream.pipe(header(`@import 'entry-css/index.mcss';\n`))
+        .pipe(footer(`@import '../../index.mcss';\n`))
         .pipe(gulp.dest('./.rgui-cache/css'))
         .pipe(mcss({
             pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],

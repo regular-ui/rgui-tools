@@ -10,7 +10,7 @@ const pkg = require('../package.json');
  */
 const program = require('commander');
 program
-    .usage('[options] <task>')
+    .usage('<task> [options]')
     .version(pkg.version)
     .command('init [options] <repo>', 'init a repo')
     .command('publish [options] <version>', 'publish a version')
@@ -21,6 +21,7 @@ program
     .option('--devtool <devtool>', 'dev tool when dist')
     .option('--browsers <browsers>', 'browsers used when test')
     .option('--reporters <reporters>', 'build reports when test')
+    .option('--independent', 'independent')
     .option('-f, --fix', 'fix when lint')
     .option('-v, --verbose', 'verbose')
     .parse(process.argv);
@@ -50,6 +51,7 @@ global.settings = {
     library: 'RGUI',
     output: 'index',
     devtools: undefined,
+    independent: false,
 };
 
 // 合并program的配置

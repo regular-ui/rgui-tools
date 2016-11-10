@@ -41,7 +41,7 @@
     "gh-pages": "^0.11.0",
     "gulp": "^3.9.1",
     "gulp-all": "^1.1.0",
-    "gulp-concat-filenames": "rainfore/gulp-concat-filenames",
+    "gulp-concat-filenames": "^1.2.0",
     "gulp-eslint": "^3.0.0",
     "gulp-file": "^0.3.0",
     "gulp-footer": "^1.0.5",

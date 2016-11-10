@@ -36,6 +36,7 @@ module.exports = function(options) {
             content: '',
             script: '',
             api: '',
+            independent: settings.independent,
         };
 
         // 获取index.json中的基本信息
