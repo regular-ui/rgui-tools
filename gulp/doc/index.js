@@ -14,6 +14,13 @@ gulp.task('doc-clean', (done) => {
 });
 
 /**
+ * Doc clean
+ */
+gulp.task('doc-copy', (done) => {
+    return gulp.src('./assets/**').pipe(gulp.dest('./doc'));
+});
+
+/**
  * Doc build
  */
 gulp.task('doc-build', (done) => {
@@ -27,5 +34,5 @@ gulp.task('doc-watch', ['doc-build'], (done) => gulp.watch('*/demo/*.md', ['doc-
  * Doc
  */
 gulp.task('doc', (done) => {
-    sequence(['doc-clean', 'cache-clean'], [settings.watch ? 'doc-watch' : 'doc-build', 'cache'], done);
+    sequence(['doc-clean', 'cache-clean'], ['doc-copy'], [settings.watch ? 'doc-watch' : 'doc-build', 'cache'], done);
 });
