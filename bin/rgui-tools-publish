@@ -13,7 +13,7 @@ const semver = require('semver');
 const program = require('commander');
 program
     .usage('rgui-tools-publish <version>')
-    .option('-d, --doc', 'Public docs')
+    .option('-D, --no-doc', 'Public without updating docs')
     .parse(process.argv);
 
 const version = semver.clean(program.args[0]);

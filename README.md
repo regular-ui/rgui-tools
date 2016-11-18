@@ -13,6 +13,15 @@ Developer Tools for Regular UI
 [download-img]: https://img.shields.io/npm/dm/rgui-tools.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rgui-tools
 
+## QuickStart
+
+```shell
+rgui-tools init -c ListView,Item ui-listview
+cd ui-listview
+rgui-tools dev
+open doc/listView/index.html
+```
+
 ## Commands
 
 - `rgui-tools help`：查看帮助
