@@ -35,7 +35,7 @@ gulp.task('cache-js', (done) => {
 
     if (settings.watch) {
         webpackConfig.watch = true;
-        webpackConfig.devtool = 'eval';
+        webpackConfig.devtool = '#eval-source-map';
     }
 
     let stream;
@@ -50,7 +50,7 @@ gulp.task('cache-js', (done) => {
             .pipe(gulpIf((file) => file.isNull(), file('index.js', '')));
     }
 
-    stream = stream.pipe(footer(`export * from '../../index.js';\n`))
+    stream = stream.pipe(gulpIf(fs.existsSync('./index.js'), footer(`export * from '../../index.js';\n`))) // 纯CSS库不用写index.js
         .pipe(gulp.dest('./.rgui-cache/js'))
         .pipe(webpack(webpackConfig));
 
@@ -79,7 +79,7 @@ gulp.task('cache-css', (done) => {
     }
 
     stream = stream.pipe(header(`@import 'entry-css/index.mcss';\n`))
-        .pipe(footer(`@import '../../index.mcss';\n`))
+        .pipe(gulpIf(fs.existsSync('./index.mcss'), footer(`@import '../../index.mcss';\n`))) // 纯JS库不用写index.mcss
         .pipe(gulp.dest('./.rgui-cache/css'))
         .pipe(mcss({
             pathes: [__dirname + '/../../node_modules/mass', __dirname, './node_modules'],
@@ -99,4 +99,3 @@ gulp.task('cache-css-watch', ['cache-css'], (done) => gulp.watch('**/*.mcss', ['
  * Cache
  */
 gulp.task('cache', settings.watch ? ['cache-js-watch', 'cache-css-watch'] : ['cache-js', 'cache-css']);
-

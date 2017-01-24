@@ -36,7 +36,7 @@ gulp.task('dist-js', (done) => {
 
     if (settings.watch) {
         webpackConfig.watch = true;
-        webpackConfig.devtool = 'eval';
+        webpackConfig.devtool = '#eval-source-map';
     }
 
     if (settings.devtool)

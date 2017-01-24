@@ -13,6 +13,12 @@ Developer Tools for Regular UI
 [download-img]: https://img.shields.io/npm/dm/rgui-tools.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rgui-tools
 
+## Install
+
+```shell
+npm install -g rgui-tools
+```
+
 ## QuickStart
 
 ```shell
