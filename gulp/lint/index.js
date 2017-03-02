@@ -18,8 +18,8 @@ if (settings.fix)
 //     eslintConfig.globals.push('expect');
 // }
 
-const SRC_PATHES = ['*.js', '*/*.js', '!./node_modules/**', '!./doc/**', '!./dist/**', '!./test-reports/**'];
-const TEST_PATHES = ['*/test/*.js', '!./node_modules/**', '!./doc/**', '!./dist/**', '!./test-reports/**'];
+const SRC_PATHES = ['*.js', './src/**.js'];
+const TEST_PATHES = ['./src/**/test/*.js'];
 /**
  * Lint Run
  */
@@ -42,4 +42,3 @@ gulp.task('lint-watch', ['lint-run'], (done) => gulp.watch(SRC_PATHES, ['lint-ru
  * Lint
  */
 gulp.task('lint', [settings.watch ? 'lint-watch' : 'lint-run']);
-

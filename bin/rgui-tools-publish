@@ -13,7 +13,7 @@ const semver = require('semver');
 const program = require('commander');
 program
     .usage('rgui-tools-publish <version>')
-    .option('-D, --no-doc', 'Public without updating docs')
+    .option('-D, --no-docs', 'Public without updating docs')
     .parse(process.argv);
 
 const version = semver.clean(program.args[0]);
@@ -50,7 +50,7 @@ Are you sure to continue? (yes/no) `, (answer) => {
     fs.writeFileSync(pkgPath, pkgInfo, 'utf-8');
 
     let shells = [];
-    if(program.doc)
+    if(program.docs)
         shells = shells.concat(['rgui-tools gh-pages']);
 
     shells = shells.concat([

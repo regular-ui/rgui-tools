@@ -2,15 +2,15 @@
 
 const babelConfig = require('./babelrc.js');
 
-module.exports = function(options) {
+module.exports = function (options) {
     return Object.assign({
         output: {
             filename: 'index.js',
             library: 'RGUI',
-            libraryTarget: 'umd'
+            libraryTarget: 'umd',
         },
         externals: {
-            'regularjs': {
+            regularjs: {
                 root: 'Regular',
                 amd: 'Regular',
                 commonjs: 'regularjs',
@@ -25,4 +25,4 @@ module.exports = function(options) {
             ],
         },
     }, options);
-}
+};

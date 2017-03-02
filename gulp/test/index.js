@@ -14,7 +14,7 @@ gulp.task('test-clean', (done) => {
 });
 
 gulp.task('test-entry', ['test-clean'], (done) => {
-    return gulp.src('./*/test/*.js', { read: false })
+    return gulp.src('./src/**/test/*.js', { read: false })
         .pipe(concatFilenames('index.js', {
             template: (filename) => `import '${filename}';`,
         }))

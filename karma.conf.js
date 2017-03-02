@@ -3,15 +3,15 @@
 const filePath = process.cwd() + '/.rgui-cache/test/index.js';
 const reportsPath = process.cwd() + '/test-reports';
 
-let preprocessors = {};
+const preprocessors = {};
 preprocessors[filePath] = 'webpack';
 
-let webpackConfig = require('./webpack.conf.js')({
+const webpackConfig = require('./webpack.conf.js')({
     output: { libraryTarget: 'umd' },
 });
 webpackConfig.module.loaders.push({ test: /\.js$/, exclude: /(test|node_modules)[\\\/]/, loader: require.resolve('isparta-loader') });
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
         singleRun: true,
         browsers: ['PhantomJS'],    // 'Chrome', 'Firefox', 'IE', 'IE9', 'IE8'
@@ -21,16 +21,16 @@ module.exports = function(config) {
             './node_modules/regularjs/dist/regular.min.js',
             filePath,
         ],
-        preprocessors: preprocessors,
+        preprocessors,
         webpack: webpackConfig,
         webpackMiddleware: { noInfo: true },
         reporters: ['nyan', 'coverage'],
         coverageReporter: {
             dir: `${reportsPath}/coverage`,
             reporters: [
-                {type: 'lcov', subdir: '.'},
-                {type: 'text'},
-            ]
+                { type: 'lcov', subdir: '.' },
+                { type: 'text' },
+            ],
         },
         // htmlReporter: {
         //     outputDir: `${reportsPath}/result`

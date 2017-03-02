@@ -59,7 +59,7 @@ gulp.task('cache-js', (done) => {
         stream = stream.pipe(uglify());
     }
 
-    return stream.pipe(gulp.dest('./doc/js'));
+    return stream.pipe(gulp.dest('./docs/js'));
 });
 gulp.task('cache-js-watch', ['cache-js']);
 
@@ -91,7 +91,7 @@ gulp.task('cache-css', (done) => {
         stream = stream.pipe(minifycss());
     }
 
-    return stream.pipe(gulp.dest('./doc/css'));
+    return stream.pipe(gulp.dest('./docs/css'));
 });
 gulp.task('cache-css-watch', ['cache-css'], (done) => gulp.watch('**/*.mcss', ['cache-css']));
 

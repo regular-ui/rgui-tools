@@ -70,11 +70,11 @@ module.exports = function(options) {
         }
 
         // 变更路径，修改file
-        file.base = file.cwd;
+        file.base = path.join(file.cwd, 'src');
         file.path = file.path.replace(/demo[\\\/](.+)\.md$/, '$1.html');
         file.contents = new Buffer(html);
 
-        options.verbose && console.log('[' + chalk.grey(new Date().toLocaleTimeString()) + ']', chalk.blue('Building'), 'doc/' + path.relative(file.base, file.path));
+        options.verbose && console.log('[' + chalk.grey(new Date().toLocaleTimeString()) + ']', chalk.blue('Building'), 'docs/' + path.relative(file.base, file.path));
 
         cb(null, file);
     });

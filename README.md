@@ -25,7 +25,7 @@ npm install -g rgui-tools
 rgui-tools init -c ListView,Item ui-listview
 cd ui-listview
 rgui-tools dev
-open doc/listView/index.html
+open docs/listView/index.html
 ```
 
 ## Commands
@@ -35,8 +35,8 @@ open doc/listView/index.html
 
 以下命令在仓库目录下（如`./ui-sample`）运行：
 
-- `rgui-tools doc`：生成文档
-- `rgui-tools gh-pages`：重新生成文档，并将`./doc`目录下的文档发布到该仓库的`gh-pages`中。
+- `rgui-tools docs`：生成文档
+- `rgui-tools gh-pages`：重新生成文档，并将`./docs`目录下的文档发布到该仓库的`gh-pages`中。
 - `rgui-tools dist`：打包当前目录下的index文件
     - `-o, --output <output>`：库的文件名（不带后缀）。默认为`index`。
     - `--library <library>`：库的命名空间。默认为`RGUI`。
@@ -54,5 +54,5 @@ open doc/listView/index.html
 
 集成命令：
 
-- `rgui-tools dev`：生成文档+验证代码风格，始终监听文件，自动修复lint问题。相当于`rgui-tools doc,lint --watch --fix`。
-- `rgui-tools clean`：手动清理所有rgui-tools命令生成的文件（以上命令默认在初始运行时也会清理生成的文件）。相当于`rgui-tools doc-clean,cache-clean,dist-clean,test-clean`。
+- `rgui-tools dev`：生成文档+验证代码风格，始终监听文件，自动修复lint问题。相当于`rgui-tools docs,lint --watch --fix`。
+- `rgui-tools clean`：手动清理所有rgui-tools命令生成的文件（以上命令默认在初始运行时也会清理生成的文件）。相当于`rgui-tools docs-clean,cache-clean,dist-clean,test-clean`。
