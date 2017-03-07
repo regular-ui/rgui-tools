@@ -18,7 +18,7 @@ if (settings.fix)
 //     eslintConfig.globals.push('expect');
 // }
 
-const SRC_PATHES = ['*.js', './src/**.js'];
+const SRC_PATHES = ['*.js', './src/**/*.js'];
 const TEST_PATHES = ['./src/**/test/*.js'];
 /**
  * Lint Run
