@@ -56,7 +56,7 @@ Are you sure to continue? (yes/no) `, (answer) => {
     shells = shells.concat([
         `git add -A .`,
         `git commit -m "v${version}"`,
-        `nnpm publish`,
+        `npm publish`,
         `git push`,
         `git tag v${version}`,
         `git push origin v${version}`,
