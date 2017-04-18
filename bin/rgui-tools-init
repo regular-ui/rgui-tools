@@ -25,7 +25,7 @@ console.log(execSync([
     `rm -rf .git`,
     `git init`,
     `git remote add origin https://github.com/regular-ui/${repo}.git`,
-].join(';')) + '');
+].join(' && ')) + '');
 process.chdir(repo);
 
 /**
@@ -42,7 +42,7 @@ settings.components = settings.components.map((component) => ({
     lowerName: component[0].toLowerCase() + component.slice(1)
 }));
 
-console.log(execSync(`mv sample ${settings.components[0].lowerName}`) + '');
+console.log(execSync(`mv src/sample src/${settings.components[0].lowerName}`) + '');
 
 /**
  * 引入gulp
