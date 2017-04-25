@@ -9,14 +9,12 @@ const eslintConfig = require('eslint-config-rgui');
 eslintConfig.envs = [];
 for (let key in eslintConfig.env)
     eslintConfig.envs.push(key);
+eslintConfig.envs.push('mocha');
+eslintConfig.globals = [];
+eslintConfig.globals.push('expect');
 
 if (settings.fix)
     eslintConfig.fix = true;
-
-// if(settings.tests) {
-//     eslintConfig.envs.push('mocha');
-//     eslintConfig.globals.push('expect');
-// }
 
 const SRC_PATHES = ['*.js', './src/**/*.js'];
 const TEST_PATHES = ['./src/**/test/*.js'];
