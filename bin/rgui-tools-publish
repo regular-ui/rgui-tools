@@ -62,5 +62,5 @@ Are you sure to continue? (yes/no) `, (answer) => {
         `git push origin v${version}`,
     ]);
 
-    console.log(execSync(shells.join(';')) + '');
+    console.log(execSync(shells.join(' && ')) + '');
 });
